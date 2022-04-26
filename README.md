@@ -1,3 +1,3 @@
-# Assets/Xlwnya/Misc
+# Xlwnya/Misc
 
 Unity用になんとなく作ったふぁいるをてきとうにgit管理するのにゃ。
