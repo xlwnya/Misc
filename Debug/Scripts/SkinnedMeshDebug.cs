@@ -16,7 +16,7 @@ namespace Xlwnya.Misc.Debug.Scripts
 
 #if UNITY_EDITOR
         [CustomEditor(inspectedType: typeof(SkinnedMeshDebug))]
-        public class SkinnedMeshDebuEditor : Editor
+        public class SkinnedMeshDebugEditor : Editor
         {
             public override void OnInspectorGUI()
             {
