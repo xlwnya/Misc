@@ -18,3 +18,6 @@ Assets/Xlwnya/Miscに置いてるにゃ。
   * RenderQueueX.mat: RenderQueueテスト
 * LightDebug: Standardのライティングを分解して表示
   * smallSphere.asset: 小さくしたUnityのSphere
+
+## License
+とりあえずMIT
