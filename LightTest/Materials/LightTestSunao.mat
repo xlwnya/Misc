@@ -186,6 +186,7 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _AlphaMaskStrength: 1
+    - _AlphaToMask: 0
     - _BlendOperation: 4
     - _BlightOffset: 0
     - _BlightOutput: 1
@@ -397,7 +398,7 @@ Material:
     - _UseVertexLight: 1
     - _Version: 1026
     - _VersionH: 1
-    - _VersionL: 0
+    - _VersionL: 4
     - _VersionM: 5
     - _VertexColor: 0
     - _VertexColorBlendDiffuse: 0
