@@ -83,6 +83,16 @@
                 return o;
             }
 
+            // https://forum.unity.com/threads/getting-scene-depth-z-buffer-of-the-orthographic-camera.601825/#post-4966334
+            inline float Correct01Depth(float rawDepth)
+            {
+                float orthoDepth = rawDepth;
+                #if defined(UNITY_REVERSED_Z)
+                    orthoDepth = 1 - orthoDepth;
+                #endif
+                return lerp(Linear01Depth(rawDepth), orthoDepth, unity_OrthoParams.w);
+            }
+            
             float4 frag(v2f i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i);
@@ -96,9 +106,7 @@
 
                 #if defined(_BLUR_MODE_NONE)
                     float d = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, i.screen_pos);
-                    #if defined(UNITY_REVERSED_Z)
-                    d = 1 - d;
-                    #endif
+                    d = Correct01Depth(d);
                     depth += d;
                     depthSq += d*d;
                 #elif defined(_BLUR_MODE_GAUSS5)
@@ -109,9 +117,7 @@
                         float y = index / 5 - 2;
                         float4 offsetPos = float4(i.screen_pos.xy+pixelSize*float2(x, y), i.screen_pos.zw);
                         float d = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, offsetPos);
-                        #if defined(UNITY_REVERSED_Z)
-                        d = 1 - d;
-                        #endif
+                        d = Correct01Depth(d);
                         d *= gaussian5[index];
                         depth += d / gaussian5_sum;
                         depthSq += d*d / gaussian5_sum;
@@ -124,9 +130,7 @@
                         float y = index / 3 - 1;
                         float4 offsetPos = float4(i.screen_pos.xy+pixelSize*float2(x, y), i.screen_pos.zw);
                         float d = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, offsetPos);
-                        #if defined(UNITY_REVERSED_Z)
-                        d = 1 - d;
-                        #endif
+                        d = Correct01Depth(d);
                         d *= gaussian3[index];
                         depth += d / gaussian3_sum;
                         depthSq += d*d / gaussian3_sum;
