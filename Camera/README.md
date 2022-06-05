@@ -1,2 +1,5 @@
-* geomで視界ジャックしているけどQuadをvertで動かした方が多分良い(VRC_StarterKitはそうなってる)
-* Normal, MotionVectorはSPS-I対応忘れてる。
+* geomで視界ジャックしているけどQuadをvertで動かした方が多分良い
+* OutputDepthRel.shaderはvert方式に変更。MeshはQuadWithBoundsに変更する必要あり。
+* Normal, MotionVectorはSPS-I対応忘れてる。TODO: これもvert方式に変更する。
+* geomで視界ジャックしているシェーダはsinglePoint.asset、vert方式のシェーダはQuadWithBounds.assetをMeshとして使用する。
+* Boundsを広くする必要がある場合はSkinnedMeshRendererなどで指定してしまうと良い。

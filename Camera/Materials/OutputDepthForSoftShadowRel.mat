@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutputDepthRelNoGeom
-  m_Shader: {fileID: 4800000, guid: ab504870d8614d0ca0f242de14c0ea4a, type: 3}
-  m_ShaderKeywords: _TARGETONLY_ON
+  m_Name: OutputDepthForSoftShadowRel
+  m_Shader: {fileID: 4800000, guid: cb09fe887f448394ca00c2eb50bcbab9, type: 3}
+  m_ShaderKeywords: _BLUR_MODE_GAUSS5 _TARGETONLY_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -20,5 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
+    - _BLUR_MODE: 0
+    - _BlurOffset: 1
     - _TargetOnly: 1
     m_Colors: []
