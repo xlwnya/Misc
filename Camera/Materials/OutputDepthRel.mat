@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutputDepthRelNoGeom
+  m_Name: OutputDepthRel
   m_Shader: {fileID: 4800000, guid: ab504870d8614d0ca0f242de14c0ea4a, type: 3}
   m_ShaderKeywords: _TARGETONLY_ON
   m_LightmapFlags: 4
