@@ -6,6 +6,9 @@ Assets/Xlwnya/Miscに置いてるにゃ。
 
 ## Contents
 * Camera: カメラに視界ジャックしてDepthとかを出力するシェーダ
+  * OutputDepthForSoftShadowRel.shader: DepthをSoftShadow用に出力するシェーダ※今のところ平行投影カメラのみ
+  * SaveRenderTexture.cs: RenderTextureを保存
+  * ShowProjection.cs: カメラの情報を表示したりマテリアルに設定したり。※今のところ平行投影カメラのみ
 * Debug
   * DebugVertexColor.shader: VertexColorを表示
   * FaceOrientation.shader: 面の向きを色で表示
@@ -32,3 +35,9 @@ Assets/Xlwnya/Miscに置いてるにゃ。
 
 ## License
 とりあえずMIT
+
+## Notices
+* 2022-06-06:
+  * Cameraでgeomを使用していた物を一部Quest対応のためvertのみで何とかする方式に変更。
+    * MeshをQuadWithBounds.assetに変更する必要あり。
+    * Depth以外もvertのみ方式に変更したい。
