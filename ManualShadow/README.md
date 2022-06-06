@@ -8,5 +8,7 @@
 ## Shaders
 * ManualShadowDebug.shader: デバッグ用の影表示シェーダ(Unlit)
 * StandardManualShadow.shader: Standardな影表示surfaceシェーダ
-* TerrainDiffuseManualShadow.shader: "Nature/Terrain/Diffuse"のシェーダに影表示を追加したシェーダ
-* cginc/CustomTerrainSplatmapCommon.cginc: TerrainシェーダでworldPosを使用するためにUnityのTerrainSplatmapCommon.cgincを改変したもの
+
+## Terrain
+* Terrain/Shaders/TerrainDiffuseManualShadow.shader: "Nature/Terrain/Diffuse"のシェーダに影表示を追加したシェーダ
+* Terrain/Shaders/cginc/CustomTerrainSplatmapCommon.cginc: TerrainシェーダでworldPosを使用するためにUnityのTerrainSplatmapCommon.cgincを改変したもの

@@ -6,7 +6,7 @@ Assets/Xlwnya/Miscに置いてるにゃ。
 
 ## Contents
 * Camera: カメラに視界ジャックしてDepthとかを出力するシェーダ
-  * OutputDepthForSoftShadowRel.shader: DepthをSoftShadow用に出力するシェーダ※今のところ平行投影カメラのみ
+  * OutputDepthForSoftShadowRel.shader: DepthをManualShadow用に出力するシェーダ※今のところ平行投影カメラのみ
   * SaveRenderTexture.cs: RenderTextureを保存
   * ShowProjection.cs: カメラの情報を表示したりマテリアルに設定したり。※今のところ平行投影カメラのみ
 * Debug
@@ -22,6 +22,7 @@ Assets/Xlwnya/Miscに置いてるにゃ。
 * LightDebug: Standardのライティングを分解して表示
   * smallSphere.asset: 小さくしたUnityのSphere
 * LightTest: 各種シェーダ表示
+* ManualShadow: ソフトシャドウの手動実装
 * Prefabs
   * WorldDebug.prefab: ワールドデバッグ装備まとめ
 * ShowNum: 数値表示
@@ -35,6 +36,8 @@ Assets/Xlwnya/Miscに置いてるにゃ。
 
 ## License
 とりあえずMIT
+
+* 一部にUnityのbuiltin_shaders由来の物、web上の情報由来の物を含みます。
 
 ## Notices
 * 2022-06-06:
