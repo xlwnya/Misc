@@ -101,14 +101,12 @@
                 // Depth
                 float2 pixelSize = 1.0 / _ScreenParams.xy * _BlurOffset;
 
-                float depth = 0;
-                float depthSq = 0;
+                float2 depth = float2(0, 0); // depth, depthSq
 
                 #if defined(_BLUR_MODE_NONE)
                     float d = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, i.screen_pos);
                     d = Correct01Depth(d);
-                    depth += d;
-                    depthSq += d*d;
+                    depth += float2(d, d*d);
                 #elif defined(_BLUR_MODE_GAUSS5)
                     UNITY_UNROLL
                     for (int index = 0; index < gaussian5_size; index++)
@@ -118,10 +116,9 @@
                         float4 offsetPos = float4(i.screen_pos.xy+pixelSize*float2(x, y), i.screen_pos.zw);
                         float d = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, offsetPos);
                         d = Correct01Depth(d);
-                        d *= gaussian5[index];
-                        depth += d / gaussian5_sum;
-                        depthSq += d*d / gaussian5_sum;
+                        depth += float2(d, d*d) * gaussian5[index];
                     }
+                    depth /= gaussian5_sum;
                 #elif defined(_BLUR_MODE_GAUSS3)
                     UNITY_UNROLL
                     for (int index = 0; index < gaussian3_size; index++)
@@ -131,13 +128,12 @@
                         float4 offsetPos = float4(i.screen_pos.xy+pixelSize*float2(x, y), i.screen_pos.zw);
                         float d = SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, offsetPos);
                         d = Correct01Depth(d);
-                        d *= gaussian3[index];
-                        depth += d / gaussian3_sum;
-                        depthSq += d*d / gaussian3_sum;
+                        depth += float2(d, d*d) * gaussian3[index];
                     }
+                    depth /= gaussian3_sum;
                 #endif
 
-                return float4(depth, depthSq, depth, 1);
+                return float4(depth, 1, 1);
             }
             ENDCG
         }

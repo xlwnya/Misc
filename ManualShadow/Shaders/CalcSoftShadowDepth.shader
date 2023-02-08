@@ -10,7 +10,6 @@
     {
         Tags { "RenderType"="Opaque" "Queue"="Geometry" }
 
-
         Pass
         {
             CGPROGRAM
@@ -83,12 +82,12 @@
                 // Depth
                 float2 pixelSize = _DepthTex_TexelSize.xy * _BlurOffset;
 
-                float depth = 0;
+                float2 depth = float2(0, 0); // depth, depthSq
                 
                 #if defined(_BLUR_MODE_NONE)
                     float d = tex2Dlod(_DepthTex, float4(i.uv, 0, 0)).r;
                     d = Correct01Depth(d);
-                    depth += d;
+                    depth += float2(d, d*d);
                 #elif defined(_BLUR_MODE_GAUSS7)
                     UNITY_UNROLL
                     for (int index = 0; index < gaussian7_size; index++)
@@ -97,9 +96,9 @@
                         float4 offsetPos = float4(i.uv.xy+pixelSize*float2(x, 0), 0, 0);
                         float d = tex2Dlod(_DepthTex, offsetPos).r;
                         d = Correct01Depth(d);
-                        d *= gaussian7[index];
-                        depth += d / gaussian7_sum;
+                        depth += float2(d, d*d) * gaussian7[index];
                     }
+                    depth /= gaussian7_sum;
                 #elif defined(_BLUR_MODE_GAUSS5)
                     UNITY_UNROLL
                     for (int index = 0; index < gaussian5_size; index++)
@@ -108,9 +107,9 @@
                         float4 offsetPos = float4(i.uv.xy+pixelSize*float2(x, 0), 0, 0);
                         float d = tex2Dlod(_DepthTex, offsetPos).r;
                         d = Correct01Depth(d);
-                        d *= gaussian5[index];
-                        depth += d / gaussian5_sum;
+                        depth += float2(d, d*d) * gaussian5[index];
                     }
+                    depth /= gaussian5_sum;
                 #elif defined(_BLUR_MODE_GAUSS3)
                     UNITY_UNROLL
                     for (int index = 0; index < gaussian3_size; index++)
@@ -119,12 +118,12 @@
                         float4 offsetPos = float4(i.uv.xy+pixelSize*float2(x, 0), 0, 0);
                         float d = tex2Dlod(_DepthTex, offsetPos).r;
                         d = Correct01Depth(d);
-                        d *= gaussian3[index];
-                        depth += d / gaussian3_sum;
+                        depth += float2(d, d*d) * gaussian3[index];
                     }
+                    depth /= gaussian3_sum;
                 #endif
 
-                return float4(depth, depth, depth, 1);
+                return float4(depth, 1, 1);
             }
             ENDCG
         }
@@ -192,11 +191,10 @@
                 // Depth
                 float2 pixelSize = _GrabTexture_TexelSize.xy * _BlurOffset;
 
-                float depth = 0;
-                float depthSq = 0;
+                float2 depth = float2(0, 0); // depth, depthSq
                 
                 #if defined(_BLUR_MODE_NONE)
-                    float d = tex2Dlod(_GrabTexture, float4(i.uv, 0, 0)).r;
+                    float2 d = tex2Dlod(_GrabTexture, float4(i.uv, 0, 0)).rg;
                     depth += d;
                 #elif defined(_BLUR_MODE_GAUSS7)
                     UNITY_UNROLL
@@ -204,36 +202,33 @@
                     {
                         float y = index - 3;
                         float4 offsetPos = float4(i.uv.xy+pixelSize*float2(0, y), 0, 0);
-                        float d = tex2Dlod(_GrabTexture, offsetPos).r;
-                        d *= gaussian7[index];
-                        depth += d / gaussian7_sum;
-                        depthSq += d*d / gaussian7_sum;
+                        float2 d = tex2Dlod(_GrabTexture, offsetPos).rg;
+                        depth += d * gaussian7[index];
                     }
+                    depth /= gaussian7_sum;
                 #elif defined(_BLUR_MODE_GAUSS5)
                     UNITY_UNROLL
                     for (int index = 0; index < gaussian5_size; index++)
                     {
                         float y = index - 2;
                         float4 offsetPos = float4(i.uv.xy+pixelSize*float2(0, y), 0, 0);
-                        float d = tex2Dlod(_GrabTexture, offsetPos).r;
-                        d *= gaussian5[index];
-                        depth += d / gaussian5_sum;
-                        depthSq += d*d / gaussian5_sum;
+                        float2 d = tex2Dlod(_GrabTexture, offsetPos).rg;
+                        depth += d * gaussian5[index];
                     }
+                    depth /= gaussian5_sum;
                 #elif defined(_BLUR_MODE_GAUSS3)
                     UNITY_UNROLL
                     for (int index = 0; index < gaussian3_size; index++)
                     {
                         float y = index - 1;
                         float4 offsetPos = float4(i.uv.xy+pixelSize*float2(0, y), 0, 0);
-                        float d = tex2Dlod(_GrabTexture, offsetPos).r;
-                        d *= gaussian3[index];
-                        depth += d / gaussian3_sum;
-                        depthSq += d*d / gaussian3_sum;
+                        float2 d = tex2Dlod(_GrabTexture, offsetPos).rg;
+                        depth += d * gaussian3[index];
                     }
+                    depth /= gaussian3_sum;
                 #endif
 
-                return float4(depth, depthSq, depth, 1);
+                return float4(depth, 1, 1);
             }
             ENDCG
         }

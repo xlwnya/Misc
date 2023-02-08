@@ -17,7 +17,7 @@ Shader "Xlwnya/ManualShadow/TerrainDiffuseManualShadow" {
         _NearClipPlane ("NearClipPlane", Float) = 1
         _FarClipPlane ("FarClipPlane", Float) = 200
         _MinVariance ("MinVariance", Float) = 0.0001
-        _VarianceScale ("VarianceScale", Float) = 0.01
+        _VarianceScale ("VarianceScale", Float) = 0.1
         _ShadowAtten ("ShadowAtten", Float) = 0.4
     }
  

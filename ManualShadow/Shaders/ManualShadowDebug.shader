@@ -15,7 +15,7 @@
         _FarClipPlane ("FarClipPlane", Float) = 200
         _MinVariance ("MinVariance", Float) = 0.0001
         _MipLevel ("MipLevel", Float) = 0
-        _VarianceScale ("VarianceScale", Float) = 0.01
+        _VarianceScale ("VarianceScale", Float) = 0.1
         _ShadowAtten ("ShadowAtten", Float) = 0.4
         [Toggle] _Smoothstep ("Smoothstep", int) = 0
         [KeywordEnum(Soft, Soft2, Hard)]_SHADOW_MODE("Mode", Float) = 0
