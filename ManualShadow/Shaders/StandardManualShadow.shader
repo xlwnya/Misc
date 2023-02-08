@@ -16,7 +16,8 @@
         _NearClipPlane ("NearClipPlane", Float) = 1
         _FarClipPlane ("FarClipPlane", Float) = 200
         _MinVariance ("MinVariance", Float) = 0.0001
-        _VarianceScale ("VarianceScale", Float) = 0.01
+        _VarianceScale ("VarianceScale", Float) = 0.1
+        _MdScale ("MdScale", Float) = 1
         _ShadowAtten ("ShadowAtten", Float) = 0.4
     }
     SubShader
@@ -53,6 +54,7 @@
         float _FarClipPlane;
         float _MinVariance;
         float _VarianceScale;
+        float _MdScale;
         float _ShadowAtten;
 
         float CalcManualShadow(float3 worldPos)
@@ -77,11 +79,12 @@
                 // 影有り
                 float depthSq = manualShadowDepth.x * manualShadowDepth.x;
                 float variance = saturate(max(abs(manualShadowDepth.y - depthSq) * _VarianceScale, _MinVariance));
-                float md = lineWorldDepth - lineDepth;
+                float md = (lineWorldDepth - lineDepth) * _MdScale;
                 float litFactor = variance / (variance + md*md);
                 atten = lerp(_ShadowAtten, 1.0, litFactor);
 
                 //atten = variance;
+                //atten = _ShadowAtten;
             }
             
             return atten;
