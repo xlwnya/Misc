@@ -5,6 +5,9 @@ Unity用になんとなく作ったふぁいるをてきとうにgit管理する
 Assets/Xlwnya/Miscに置いてるにゃ。
 
 ## Contents
+* Avatar: アバター関連
+  * BoneAutoRename: アバターのHumanoidボーン名を適当に変更する
+    * 現状ミルクRe基準のため、(Left|Right)?ボーン名になります(TODO: 他の命名規則)
 * Camera: カメラに視界ジャックしてDepthとかを出力するシェーダ
   * OutputDepthForSoftShadowRel.shader: DepthをManualShadow用に出力するシェーダ※今のところ平行投影カメラのみ
   * SaveRenderTexture.cs: RenderTextureを保存
